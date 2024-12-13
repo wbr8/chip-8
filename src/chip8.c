@@ -4,14 +4,13 @@
 
 #include "chip8.h"
 
-void process_opcode(int instruction);
 void load_font_to_ram(CPU* cpu);
 void dump_ram(CPU* cpu);
 
 void emu_init(CPU* cpu) {
     memset(cpu, 0, sizeof(CPU));
     load_font_to_ram(cpu);
-    cpu->pc = 0x200;            // move PC to start of programs
+    cpu->pc = 0x200;            // move PC to start of program
     dump_ram(cpu);
 }
 
@@ -36,7 +35,10 @@ void dump_ram(CPU* cpu) {
 
 void emu_tick(CPU* cpu) {
     // TODO: implement an actual CPU cycle
-    cpu->pc++;
+    int opcode = cpu->memory[cpu->pc] << 8 | cpu->memory[cpu->pc + 1];
+    cpu->pc = cpu->pc + 2;
+
+
 }
 
 void load_font_to_ram(CPU* cpu) {
@@ -59,14 +61,10 @@ void load_font_to_ram(CPU* cpu) {
         {0xF0, 0x80, 0xF0, 0x80, 0x80}      // F
     };
 
-    int counter = 0;
+    int counter = 0x50;
     for (int i = 0; i < 16; i++) {
         for (int j = 0; j < 5; j++) {
             cpu->memory[counter++] = font[i][j];
         }
     }
-}
-
-void process_opcode(int instruction) {
-    
 }

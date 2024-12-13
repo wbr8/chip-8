@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 
 #include "chip8.h"
+#include "window.h"
 
 // 64 x 32 screen 
 #define WINDOW_WIDTH 1280
