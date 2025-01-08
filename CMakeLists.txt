@@ -18,7 +18,7 @@ else()
     find_package(SDL2 REQUIRED CONFIG COMPONENTS SDL2main)
 endif()
 
-add_executable(chip8 src/main.c src/chip8.c src/window.c)
+add_executable(chip8 src/main.c src/chip8.c src/screen.c)
 
 # SDL2::SDL2main may or may not be available. It is e.g. required by Windows GUI applications
 if(TARGET SDL2::SDL2main)

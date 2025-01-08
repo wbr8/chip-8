@@ -24,7 +24,7 @@ void dump_cpu_state(CPU* cpu) {
 }
 
 void dump_ram(CPU* cpu) {
-    int counter = 0;
+    int counter = 0x50;
     for (int i = 0; i < 16; i++) {
         for (int j = 0; j < 5; j++) {
             printf("0x%x ", cpu->memory[counter++]);

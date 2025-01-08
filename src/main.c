@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 
 #include "chip8.h"
-#include "window.h"
+#include "screen.h"
 
 // 64 x 32 screen 
 #define WINDOW_WIDTH 1280
@@ -30,6 +30,7 @@ int main(int argc, char** argv) {
     SDL_UpdateWindowSurface(window);
 
     CPU cpu;
+    Screen screen;
     emu_init(&cpu);
     dump_cpu_state(&cpu);
     emu_tick(&cpu);
