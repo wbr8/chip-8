@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #include "chip8.h"
+#include "screen.h"
 
 void load_font_to_ram(CPU* cpu);
 void dump_ram(CPU* cpu);
@@ -37,7 +38,15 @@ void emu_tick(CPU* cpu) {
     // TODO: implement an actual CPU cycle
     int opcode = cpu->memory[cpu->pc] << 8 | cpu->memory[cpu->pc + 1];
     cpu->pc = cpu->pc + 2;
-
+    switch (opcode)
+    {
+    case 0x00E0:
+        /* code */
+        break;
+    
+    default:
+        break;
+    }
 
 }
 

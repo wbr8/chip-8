@@ -3,6 +3,7 @@ project(CHIP-8)
 
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED True)
+set(CMAKE_C_FLAGS "-fdiagnostics-color")
 
 find_package(SDL2 REQUIRED)
 

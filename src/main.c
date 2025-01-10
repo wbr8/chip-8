@@ -5,12 +5,6 @@
 #include "chip8.h"
 #include "screen.h"
 
-// 64 x 32 screen 
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 640
-#define PIXEL_WIDTH 20
-
-void draw_pixel(SDL_Surface* win_surface, int x, int y);
 void draw_grid(SDL_Surface* win_surface);
 
 int main(int argc, char** argv) {
@@ -23,18 +17,27 @@ int main(int argc, char** argv) {
     SDL_SetWindowResizable(window, SDL_FALSE);
     win_surface = SDL_GetWindowSurface(window);
 
-    draw_pixel(win_surface, 0, 0);
-    draw_pixel(win_surface, 63, 31);
-    draw_grid(win_surface);
+    // draw_pixel(win_surface, 0, 0, 1);
+    // draw_pixel(win_surface, 63, 31, 1);
+    // draw_grid(win_surface);
 
     SDL_UpdateWindowSurface(window);
 
     CPU cpu;
     Screen screen;
+    memset(&screen, 0, sizeof(screen));
+
     emu_init(&cpu);
     dump_cpu_state(&cpu);
     emu_tick(&cpu);
     dump_cpu_state(&cpu);
+
+    screen.pixels[0][0] = (SDL_Rect) {(0) * 20, (0) * 20, PIXEL_WIDTH, PIXEL_WIDTH};
+    screen.pixel_colour[0][0] = 1;
+    draw_screen(win_surface, screen.pixels, screen.pixel_colour, WINDOW_HEIGHT, WINDOW_WIDTH);
+    draw_grid(win_surface);
+
+    SDL_UpdateWindowSurface(window);
 
     SDL_Delay(5000);
 
@@ -42,12 +45,6 @@ int main(int argc, char** argv) {
 
     SDL_Quit();
     return 0;
-}
-
-void draw_pixel(SDL_Surface* win_surface, int x, int y) {
-    SDL_Rect pixel = (SDL_Rect) {x * 20, y * 20, PIXEL_WIDTH, PIXEL_WIDTH};
-
-    SDL_FillRect(win_surface, &pixel, SDL_MapRGB( (win_surface->format) , 255, 255, 255));      // white pixel
 }
 
 void draw_grid(SDL_Surface* win_surface) {
