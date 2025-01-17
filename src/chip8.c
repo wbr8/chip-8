@@ -3,7 +3,6 @@
 #include <stdint.h>
 
 #include "chip8.h"
-#include "screen.h"
 
 void load_font_to_ram(CPU* cpu);
 void dump_ram(CPU* cpu);
@@ -12,7 +11,7 @@ void emu_init(CPU* cpu) {
     memset(cpu, 0, sizeof(CPU));
     load_font_to_ram(cpu);
     cpu->pc = 0x200;            // move PC to start of program
-    dump_ram(cpu);
+    // dump_ram(cpu);
 }
 
 void dump_cpu_state(CPU* cpu) {
@@ -34,14 +33,14 @@ void dump_ram(CPU* cpu) {
     }
 }
 
-void emu_tick(CPU* cpu) {
+void emu_tick(CPU* cpu, Screen* screen) {
     // TODO: implement an actual CPU cycle
     int opcode = cpu->memory[cpu->pc] << 8 | cpu->memory[cpu->pc + 1];
     cpu->pc = cpu->pc + 2;
     switch (opcode)
     {
-    case 0x00E0:
-        /* code */
+    case 0x00E0:    // clear screen, set all pixels to black
+        clear_screen(screen);
         break;
     
     default:

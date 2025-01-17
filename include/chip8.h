@@ -1,6 +1,8 @@
 #pragma once
 #include <stdint.h>
 
+#include "screen.h"
+
 typedef struct CPU {
     uint8_t memory[4096];   // 4K of memory
     uint16_t pc;            // program counter
@@ -12,5 +14,5 @@ typedef struct CPU {
 
 void emu_init(CPU* cpu);
 void emu_load_program(CPU* cpu, FILE* file);
-void emu_tick(CPU* cpu);
+void emu_tick(CPU* cpu, Screen* screen);
 void dump_cpu_state(CPU* cpu);
